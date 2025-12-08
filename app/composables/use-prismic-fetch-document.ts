@@ -2,6 +2,7 @@ import { usePrismicPreviewRoute } from '~/composables/use-prismic-preview-route'
 import type { PrismicDocumentType } from '~/types/api'
 import { isDynamicRoute } from '~~/shared/prismic-routes'
 import type { AllDocumentTypes } from '~~/prismicio-types'
+import type { IntersectDocument } from '~/types/api'
 
 export async function usePrismicFetchDocument<T extends AllDocumentTypes>(
 	documentType: PrismicDocumentType | undefined,

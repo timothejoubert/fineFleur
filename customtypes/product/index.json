@@ -1,0 +1,80 @@
+{
+	"format": "custom",
+	"id": "product",
+	"label": "Product",
+	"repeatable": true,
+	"status": true,
+	"json": {
+		"Main": {
+			"uid": {
+				"type": "UID",
+				"config": {
+					"label": "UID"
+				}
+			},
+			"name": {
+				"type": "Text",
+				"config": {
+					"label": "Name",
+					"placeholder": ""
+				}
+			},
+			"brand": {
+				"type": "Text",
+				"config": {
+					"label": "Brand",
+					"placeholder": ""
+				}
+			},
+			"price": {
+				"type": "Number",
+				"config": {
+					"label": "Price",
+					"placeholder": ""
+				}
+			},
+			"image": {
+				"type": "Image",
+				"config": {
+					"label": "Image",
+					"constraint": {
+						"width": 537,
+						"height": 416
+					},
+					"thumbnails": [
+						{
+							"name": "Extended",
+							"width": 1130,
+							"height": 416
+						},
+						{
+							"name": "Mobile",
+							"width": 319,
+							"height": 228
+						}
+					]
+				}
+			},
+			"link": {
+				"type": "Link",
+				"config": {
+					"label": "Link",
+					"placeholder": "",
+					"select": null,
+					"allowTargetBlank": true,
+					"allowText": true,
+					"repeat": false
+				}
+			},
+			"extended": {
+				"type": "Boolean",
+				"config": {
+					"label": "Extended",
+					"placeholder_false": "false",
+					"placeholder_true": "true",
+					"default_value": false
+				}
+			}
+		}
+	}
+}

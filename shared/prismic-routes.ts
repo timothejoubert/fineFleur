@@ -1,30 +1,10 @@
-import { HOME_PAGE_TYPE, ARCHIVE_TYPE, ABOUT_TYPE, PROJECT_LISTING_TYPE, PROJECT_TYPE } from './prismic-documents'
+import { HOME_PAGE_TYPE } from './prismic-documents'
 
 export const prismicDocumentRoutes = {
 	[HOME_PAGE_TYPE]: {
 		name: 'index',
 		type: HOME_PAGE_TYPE,
 		path: '/:lang?',
-	},
-	[ARCHIVE_TYPE]: {
-		name: 'archive',
-		type: ARCHIVE_TYPE,
-		path: '/:lang?/archive',
-	},
-	[ABOUT_TYPE]: {
-		name: 'about',
-		type: ABOUT_TYPE,
-		path: '/:lang?/a-propos',
-	},
-	[PROJECT_LISTING_TYPE]: {
-		name: 'projets',
-		type: PROJECT_LISTING_TYPE,
-		path: '/:lang?/projets',
-	},
-	[PROJECT_TYPE]: {
-		name: 'projet',
-		type: PROJECT_TYPE,
-		path: '/:lang?/projets/:uid',
 	},
  } as const
 

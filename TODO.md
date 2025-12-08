@@ -1,10 +1,10 @@
 
 ## In progress
-- Use VPrimisVideo and VPrimicImage instead VPrismicMedia (allow multiple field by props to display the one filled)
-- VPrimisVideo should have displayThumbnail rops
-- VVideoPlayer (native video + embed video) uise Plyr ?
+- Theme Switcher (cookies)
+- Tag filter
 
 ## Selected for work
-- Split text
-- Splash screen
-- VButon component
+- Responsive img (mobile source)
+- Term modal
+- Product filter (update fetch options)
+- Product listing (page query & loadMore)

@@ -1,22 +1,17 @@
 import type { ExtractDocumentType } from '~/types/api'
-import { prismicDocumentRoutes } from '~~/shared/prismic-routes'
-import type { ProjectPageDocument } from '~~/prismicio-types'
 import { generateHashFromObject } from '~/utils/hash'
-import type { PrismicDocument } from '@prismicio/types'
+import type { AllDocumentTypes } from '~~/prismicio-types'
 
 type PrismicClient = ReturnType<typeof usePrismic>['client']
 export type GetAllByTypeParams = Parameters<PrismicClient['getAllByType']>[1]
 
-export type RepeatableDocument = ProjectPageDocument
-export type RepeatableDocumentType = ExtractDocumentType<ProjectPageDocument>
-
 export function usePrismicFetchDocuments<
-	T extends PrismicDocument = RepeatableDocument,
->(prismicDocument: RepeatableDocumentType, options: GetAllByTypeParams = {}) {
+	T extends AllDocumentTypes,
+>(prismicDocument: ExtractDocumentType<T>, options: GetAllByTypeParams = {}) {
 	const prismicClient = usePrismic().client
 	const fetchOptions = {
 		// pageSize: options.pageSize || 12, // default 20
-		limit: options.pageSize || 2, // default 20
+		limit: options.pageSize || 20, // default 20
 		// routes: prismicDocumentRoutes,
 		brokenRoute: '/404',
 		...useLocale()?.fetchLocaleOption.value,
@@ -32,26 +27,11 @@ export function usePrismicFetchDocuments<
 	return useAsyncData(
 		key,
 		() => {
-			return prismicClient.getAllByType<T>(prismicDocument, options)
+			return prismicClient.getByType(prismicDocument, options)
 		},
 		{
-			getCachedData: (key, nuxtApp) =>
-				nuxtApp.static.data[key] ?? nuxtApp.payload.data[key],
 			dedupe: 'defer', // wait for the first request to finish before making another request
 			deep: false,
-			// lazy: true,
-			// default: () => {
-			//     return {
-			//         page: options.page || 0,
-			//         results_per_page: 0,
-			//         results_size: 0,
-			//         total_results_size: size,
-			//         total_pages: 0,
-			//         next_page: null,
-			//         prev_page: null,
-			//         results: [...Array(size).keys()].map(() => null),
-			//     }
-			// },
 		},
 	)
 }

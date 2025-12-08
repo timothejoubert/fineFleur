@@ -5,7 +5,6 @@ import type {
 } from '@prismicio/types'
 import type {
 	AllDocumentTypes,
-	ProjectPageDocument,
 	SettingsDocument,
 } from '~~/prismicio-types'
 
@@ -22,12 +21,12 @@ export type ReachableDocument = ExcludeDocument<
 	AllDocumentTypes,
 	SettingsDocument
 >
-export type RepeatableDocument = ProjectPageDocument
+// export type RepeatableDocument = ProjectPageDocument
 
 // Document type
 export type PrismicDocumentType = ExtractDocumentType<AllDocumentTypes>
-export type PrismicRepeatableDocumentType
-	= ExtractDocumentType<RepeatableDocument>
+// export type PrismicRepeatableDocumentType
+// 	= ExtractDocumentType<RepeatableDocument>
 export type PrismicReachableDocumentType
 	= ExtractDocumentType<ReachableDocument>
 export type DocumentWithUidType = ExtractDocumentType<DocumentWithUid>
@@ -45,11 +44,11 @@ export type ExtractDocumentType<T extends PrismicDocument> = Pick<
 	T,
 	'type'
 >['type']
-type IntersectDocument<
+export type IntersectDocument<
 	T extends PrismicDocument,
 	FilterType extends PrismicDocument,
 > = T extends FilterType ? T : never
-type ExcludeDocument<
+export type ExcludeDocument<
 	T extends PrismicDocument,
 	FilterType extends PrismicDocument,
 > = T extends FilterType ? never : T

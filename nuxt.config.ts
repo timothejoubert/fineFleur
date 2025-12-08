@@ -1,4 +1,4 @@
-import { repositoryName } from './slicemachine.config.json'
+import { repositoryName, apiEndpoint } from './slicemachine.config.json';
 import { version } from './package.json'
 import svgLoader from 'vite-svg-loader'
 import { I18N_DEFAULT_LOCALE, I18N_LOCALES } from './i18n/i18n'
@@ -140,12 +140,12 @@ export default defineNuxtConfig({
 		},
 	},
 	prismic: {
-		endpoint: repositoryName,
+		endpoint: apiEndpoint || repositoryName,
 		preview: PREVIEW_PATH,
 		toolbar: !isProd,
-		clientConfig: {
-			routes: prismicRouteList,
-		},
+		// clientConfig: {
+		// 	routes: prismicRouteList,
+		// },
 	},
 	    // https://nuxt.com/modules/icon#usage
     icon: {

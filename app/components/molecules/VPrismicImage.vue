@@ -20,14 +20,14 @@ const sources = computed(() => {
 		return !!(filledImage.value as ImageField<string>)?.[key]
 	}).map((key) => {
 		const source = (filledImage.value as ImageField<string>)[key]
-		const mediaWidth = key === 'large' ? 1024 : key === 'medium' ? 768 : 320
+		const mediaWidth = key === 'large' ? 1024 : key === 'medium' ? 768 : 420
 
 		return {
 			...source,
 			width: source?.dimensions?.width,
 			height: source?.dimensions?.height,
 			srcset: source?.url || '',
-			media: `(min-width: ${mediaWidth}px)`,
+			media: `(max-width: ${mediaWidth}px)`,
 		}
 	}).filter(m => m.srcset)
 })
