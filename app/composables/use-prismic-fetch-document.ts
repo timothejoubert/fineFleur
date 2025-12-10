@@ -23,12 +23,12 @@ export async function usePrismicFetchDocument<T extends AllDocumentTypes>(
 		brokenRoute: '/404',
 	}
 
-	const { data, error } = await useAsyncData(
+	return useAsyncData(
 		dataKey,
 		async () => {
 			try {
 				if (isPreview.value && documentId.value) {
-					return await prismicClient.getByID(
+					return prismicClient.getByID<T>(
 						documentId.value,
 						prismicFetchOptions,
 					)
@@ -38,22 +38,23 @@ export async function usePrismicFetchDocument<T extends AllDocumentTypes>(
 					&& documentType
 					&& isDynamicRoute(documentType)
 				) {
-					return await prismicClient.getByUID(
+					return prismicClient.getByUID<T>(
 						documentType,
 						uid,
 						prismicFetchOptions,
 					)
 				}
 				else if (documentType) {
-					return await prismicClient.getSingle(
+					return prismicClient.getSingle<T>(
 						documentType,
 						prismicFetchOptions,
 					)
 				}
+				return undefined
 			}
 			catch (error) {
 				console.error('Error during Prismic document fetch', error)
-				return { data: null }
+				return undefined
 			}
 		},
 		{
@@ -63,9 +64,4 @@ export async function usePrismicFetchDocument<T extends AllDocumentTypes>(
 			deep: false,
 		},
 	)
-
-	return {
-		data: computed(() => data.value as T),
-		error,
-	}
 }
