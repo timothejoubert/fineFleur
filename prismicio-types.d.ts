@@ -70,6 +70,38 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>['id']]
 
 /**
+ * Item in *Product → Tags*
+ */
+export interface ProductDocumentDataTagsItem {
+	/**
+	 * Product tag field in *Product → Tags*
+	 *
+	 * - **Field Type**: Content Relationship
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product.tags[].product_tag
+	 * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+	 */
+	product_tag: ContentRelationshipFieldWithData<
+		[
+			{
+				id: 'product_tag'
+				fields: [
+					'name',
+					{
+						id: 'light_theme'
+						fields: ['content', 'border', 'background']
+					},
+					{
+						id: 'dark_theme'
+						fields: ['content', 'border', 'background']
+					},
+				]
+			},
+		]
+	>
+}
+
+/**
  * Content for Product documents
  */
 interface ProductDocumentData {
@@ -83,6 +115,17 @@ interface ProductDocumentData {
 	 * - **Documentation**: https://prismic.io/docs/fields/text
 	 */
 	name: prismic.KeyTextField
+
+	/**
+	 * Tags field in *Product*
+	 *
+	 * - **Field Type**: Group
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product.tags[]
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+	 */
+	tags: prismic.GroupField<Simplify<ProductDocumentDataTagsItem>>
 
 	/**
 	 * Brand field in *Product*
@@ -154,6 +197,134 @@ export type ProductDocument<Lang extends string = string> =
 	prismic.PrismicDocumentWithUID<
 		Simplify<ProductDocumentData>,
 		'product',
+		Lang
+	>
+
+/**
+ * Item in *Product tag → Light theme*
+ */
+export interface ProductTagDocumentDataLightThemeItem {
+	/**
+	 * content field in *Product tag → Light theme*
+	 *
+	 * - **Field Type**: Color
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product_tag.light_theme[].content
+	 * - **Documentation**: https://prismic.io/docs/fields/color
+	 */
+	content: prismic.ColorField
+
+	/**
+	 * Border field in *Product tag → Light theme*
+	 *
+	 * - **Field Type**: Color
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product_tag.light_theme[].border
+	 * - **Documentation**: https://prismic.io/docs/fields/color
+	 */
+	border: prismic.ColorField
+
+	/**
+	 * Background field in *Product tag → Light theme*
+	 *
+	 * - **Field Type**: Color
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product_tag.light_theme[].background
+	 * - **Documentation**: https://prismic.io/docs/fields/color
+	 */
+	background: prismic.ColorField
+}
+
+/**
+ * Item in *Product tag → Dark theme*
+ */
+export interface ProductTagDocumentDataDarkThemeItem {
+	/**
+	 * Content field in *Product tag → Dark theme*
+	 *
+	 * - **Field Type**: Color
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product_tag.dark_theme[].content
+	 * - **Documentation**: https://prismic.io/docs/fields/color
+	 */
+	content: prismic.ColorField
+
+	/**
+	 * Border field in *Product tag → Dark theme*
+	 *
+	 * - **Field Type**: Color
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product_tag.dark_theme[].border
+	 * - **Documentation**: https://prismic.io/docs/fields/color
+	 */
+	border: prismic.ColorField
+
+	/**
+	 * Background field in *Product tag → Dark theme*
+	 *
+	 * - **Field Type**: Color
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product_tag.dark_theme[].background
+	 * - **Documentation**: https://prismic.io/docs/fields/color
+	 */
+	background: prismic.ColorField
+}
+
+/**
+ * Content for Product tag documents
+ */
+interface ProductTagDocumentData {
+	/**
+	 * Name field in *Product tag*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product_tag.name
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	name: prismic.KeyTextField
+
+	/**
+	 * Light theme field in *Product tag*
+	 *
+	 * - **Field Type**: Group
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product_tag.light_theme[]
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+	 */
+	light_theme: prismic.GroupField<
+		Simplify<ProductTagDocumentDataLightThemeItem>
+	>
+
+	/**
+	 * Dark theme field in *Product tag*
+	 *
+	 * - **Field Type**: Group
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: product_tag.dark_theme[]
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+	 */
+	dark_theme: prismic.GroupField<
+		Simplify<ProductTagDocumentDataDarkThemeItem>
+	>
+}
+
+/**
+ * Product tag document from Prismic
+ *
+ * - **API ID**: `product_tag`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ProductTagDocument<Lang extends string = string> =
+	prismic.PrismicDocumentWithUID<
+		Simplify<ProductTagDocumentData>,
+		'product_tag',
 		Lang
 	>
 
@@ -255,7 +426,65 @@ export type SettingsDocument<Lang extends string = string> =
 		Lang
 	>
 
-export type AllDocumentTypes = ProductDocument | SettingsDocument
+/**
+ * Content for Terms documents
+ */
+interface TermsDocumentData {
+	/**
+	 * Section title field in *Terms*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: terms.section_title
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	section_title: prismic.KeyTextField
+
+	/**
+	 * Button label field in *Terms*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: terms.button_label
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	button_label: prismic.KeyTextField
+
+	/**
+	 * Content field in *Terms*
+	 *
+	 * - **Field Type**: Rich Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: terms.content
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/rich-text
+	 */
+	content: prismic.RichTextField
+}
+
+/**
+ * Terms document from Prismic
+ *
+ * - **API ID**: `terms`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type TermsDocument<Lang extends string = string> =
+	prismic.PrismicDocumentWithoutUID<
+		Simplify<TermsDocumentData>,
+		'terms',
+		Lang
+	>
+
+export type AllDocumentTypes =
+	| ProductDocument
+	| ProductTagDocument
+	| SettingsDocument
+	| TermsDocument
 
 declare module '@prismicio/client' {
 	interface CreateClient {
@@ -280,9 +509,16 @@ declare module '@prismicio/client' {
 		export type {
 			ProductDocument,
 			ProductDocumentData,
+			ProductDocumentDataTagsItem,
+			ProductTagDocument,
+			ProductTagDocumentData,
+			ProductTagDocumentDataLightThemeItem,
+			ProductTagDocumentDataDarkThemeItem,
 			SettingsDocument,
 			SettingsDocumentData,
 			SettingsDocumentDataSocialsItem,
+			TermsDocument,
+			TermsDocumentData,
 			AllDocumentTypes,
 		}
 	}

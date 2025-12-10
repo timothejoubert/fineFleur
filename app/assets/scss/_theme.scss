@@ -1,9 +1,22 @@
-@use 'assets/scss/mixins/theme' as *;
-@use 'assets/scss/variables/themes' as *;
+// @use 'assets/scss/mixins/theme' as *;
+// @use 'assets/scss/variables/themes' as *;
 
 :root  {
-    @include theme($default-theme);
+    // @include theme($default-theme);
+    color-scheme: light;
 
-    background-color: var(--theme-color-background);
-    color: var(--theme-color-on-background);
+    --theme-surface-primary: light-dark(#FFF, #010101);
+    --theme-surface-secondary: light-dark(#F7F7F7, #1D1D1D);
+    --theme-surface-overlay: light-dark(#01010166, red);
+    --theme-content-primary: light-dark(#010101, #FFF);
+    --theme-content-secondary: light-dark(#898989, #898989);
+    --theme-line-primary: light-dark(#01010133, red);
+    --theme-button-medium-content: light-dark(#010101, red);
+    --theme-button-medium-border: light-dark(#A9A9A9, red);
+    --theme-button-low-content: light-dark(#4F4F4F, #D1D1D1);
+}
+
+html {
+    background-color: var(--theme-surface-primary);
+    color: var(--theme-content-primary);
 }

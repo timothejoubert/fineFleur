@@ -26,7 +26,7 @@ const { data: tags } = useAsyncData('all-repo-tags', () => {
 		</div>
 		<div :class="$style.footer">
 			<VThemeSwitcher />
-			<button :class="$style.terms">Terms</button>
+			<VTermsPopover />
 		</div>
 	</header>
 </template>
@@ -50,7 +50,8 @@ const { data: tags } = useAsyncData('all-repo-tags', () => {
 	gap: 8px;
 
 	@media (width >= 768px) {
-		position: initial;
+		position: sticky;
+		top: 0;
 		right: initial;
 		left: initial;
 		display: inline-flex;

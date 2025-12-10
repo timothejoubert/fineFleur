@@ -19,6 +19,47 @@
 					"placeholder": ""
 				}
 			},
+			"tags": {
+				"type": "Group",
+				"config": {
+					"label": "Tags",
+					"repeat": true,
+					"fields": {
+						"product_tag": {
+							"type": "Link",
+							"config": {
+								"label": "Product tag",
+								"select": "document",
+								"repeat": false,
+								"customtypes": [
+									{
+										"id": "product_tag",
+										"fields": [
+											"name",
+											{
+												"id": "light_theme",
+												"fields": [
+													"content",
+													"border",
+													"background"
+												]
+											},
+											{
+												"id": "dark_theme",
+												"fields": [
+													"content",
+													"border",
+													"background"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					}
+				}
+			},
 			"brand": {
 				"type": "Text",
 				"config": {

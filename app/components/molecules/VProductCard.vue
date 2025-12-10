@@ -7,7 +7,11 @@ const props = defineProps<{
 }>()
 
 const data = computed(() => props.product.data)
-const tags = computed(() => props.product.tags || [])
+const tagDocuments = computed(() => {
+	return data.value.tags.map(tagDocument => {
+		return tagDocument.product_tag
+	}).filter(t => !!t)
+})
 const url = computed(() => data.value.link)
 
 const imageProps = computed(() => {
@@ -36,26 +40,12 @@ const imageProps = computed(() => {
 	<div
 		:class="$style.root"
 	>
-		<template v-if="tags && tags.length">
-			<TransitionGroup
-				:name="$style['tag-animation']"
-				tag="div"
-				:class="$style.tags"
-			>
-				<button
-					v-for="(tag, i) in tags"
-					:key="tag"
-					theme="accent"
-					tag="div"
-					:filled="true"
-					:style="{ '--tag-index': tags.length - i }"
-					size="xs"
-					:class="$style.tag"
-				>
-					{{ tag }}
-				</button>
-			</TransitionGroup>
-		</template>
+		<div v-if="tagDocuments.length" :class="$style.tags">
+			<template v-for="tag in tagDocuments" :key="tag?.id">
+				<VProductTag :product-tag="tag" />
+			</template>
+
+		</div>
 		<VPrismicImage
 			:field="data.image"
 			:media-props="imageProps"
@@ -81,7 +71,7 @@ const imageProps = computed(() => {
     display: grid;
 	padding: 20px;
 	border-radius: 16px;
-	background-color: #F7F7F7;
+	background-color: var(--theme-surface-secondary);
 	column-gap: var(--gutter);
 	grid-template-areas:
 		"tags tags"
@@ -105,16 +95,17 @@ const imageProps = computed(() => {
 }
 
 .brand {
-	color: #898989;
+	color: var(--theme-content-secondary);
 	grid-area: brand;
 }
 
 .title {
+	color: var(--theme-content-primary);
 	grid-area: title;
 }
 
 .price {
-	color: #898989;
+	color: var(--theme-content-secondary);
 	grid-area: price;
 	text-align: right;
 

@@ -3,22 +3,32 @@
 
 $themes: (
     light: (
-        color-primary: #FF7C60,
-        color-on-primary: #05000D,
+        surface-primary: #FFF,
+        surface-secondary: #F7F7F7,
+        surface-overlay: #01010166,
 
-        color-background: #FAFAFA,
-        color-on-background: #05000D,
+        content-primary: #010101,
+        content-secondary: #898989,
 
-        color-line: #454652,
+        line-primary: #01010133,
+
+        button-medium-content: #010101,
+        button-medium-border: #A9A9A9,
+        button-low-content: #4F4F4F,
     ),
     dark: (
-        color-primary: #FF7C60,
-        color-on-primary: #05000D,
+        surface-primary: #010101,
+        surface-secondary: #1D1D1D,
+        // surface-overlay: #01010166,
 
-        color-background: #161A2B,
-        color-on-background: #FFF4EF,
+        content-primary: #FFFFFF,
+        content-secondary: #898989,
 
-        color-line: #fff4ef1a,
+        // line-primary: #01010133,
+
+        // button-medium-content: #010101,
+        // button-medium-border: #A9A9A9,
+        button-low-content: #D1D1D1,
     ),
 );
 $default-theme: light;

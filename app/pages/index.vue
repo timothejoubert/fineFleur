@@ -36,6 +36,7 @@ const result = computed(() => response.data.value?.results || [])
 	padding: 0;
 	margin: 0;
 	gap: var(--gutter);
+	grid-auto-flow: dense;
 	grid-template-columns: 1fr;
 	list-style: none;
 

@@ -1,0 +1,84 @@
+{
+	"format": "custom",
+	"id": "product_tag",
+	"label": "Product tag",
+	"repeatable": true,
+	"status": true,
+	"json": {
+		"Main": {
+			"uid": {
+				"type": "UID",
+				"config": {
+					"label": "UID"
+				}
+			},
+			"name": {
+				"type": "Text",
+				"config": {
+					"label": "Name",
+					"placeholder": ""
+				}
+			},
+			"light_theme": {
+				"type": "Group",
+				"config": {
+					"label": "Light theme",
+					"repeat": false,
+					"fields": {
+						"content": {
+							"type": "Color",
+							"config": {
+								"label": "content",
+								"placeholder": ""
+							}
+						},
+						"border": {
+							"type": "Color",
+							"config": {
+								"label": "Border",
+								"placeholder": ""
+							}
+						},
+						"background": {
+							"type": "Color",
+							"config": {
+								"label": "Background",
+								"placeholder": ""
+							}
+						}
+					}
+				}
+			},
+			"dark_theme": {
+				"type": "Group",
+				"config": {
+					"label": "Dark theme",
+					"repeat": false,
+					"fields": {
+						"content": {
+							"type": "Color",
+							"config": {
+								"label": "Content",
+								"placeholder": ""
+							}
+						},
+						"border": {
+							"type": "Color",
+							"config": {
+								"label": "Border",
+								"placeholder": ""
+							}
+						},
+						"background": {
+							"type": "Color",
+							"config": {
+								"label": "Background",
+								"placeholder": ""
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
