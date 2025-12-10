@@ -27,15 +27,10 @@ const { data: document } = await usePrismicFetchDocument<TermsDocument>('terms')
 
 .popover {
 	width: min(100%, 696px);
-	flex-direction: column;
 	padding: 48px 51px;
 	border: none;
 	border-radius: 16px;
 	margin-top: 72px;
-
-	&[open] {
-		display: flex;
-	}
 
 	&::backdrop {
 		background-color: var(--theme-surface-overlay);
