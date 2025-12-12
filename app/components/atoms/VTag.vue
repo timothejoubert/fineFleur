@@ -19,20 +19,22 @@ const rootClasses = computed(() => {
 </script>
 <template>
 	<component :is="tag || 'span'" :class="rootClasses">
-		<VIcon v-if="icon" :name="icon" />
-		<span :class="$style.label">
-			{{ label }}
-		</span>
+		<slot name="icon" :item-class="$style.icon">
+			<VIcon v-if="icon" :name="icon" :class="$style.icon" />
+		</slot>
+		<slot name="label" :item-class="$style.label">
+			<span :class="$style.label">
+				{{ label }}
+			</span>
+		</slot>
 	</component>
 </template>
 
 <style lang="scss" module>
 .root {
+	display: inline-flex;
+	align-items: center;
 	color: var(--theme-tag-content);
-	font-size: 14px;
-	font-weight: 400;
-	letter-spacing: -0.28px;
-	line-height: 170%;
 
 	&--variant-filled {
 		padding: 4px 6px;
@@ -41,13 +43,21 @@ const rootClasses = computed(() => {
 	}
 
 	&--variant-outlined {
-		padding: 4px 8px;
 		border: 1PX solid var(--theme-tag-border);
 		border-radius: 8px;
+
+		&:has(.icon) {
+			padding: 4px 8px 4px 4px;
+		}
 	}
 }
 
 .label {
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: -0.28px;
+	line-height: 170%;
+
 	.root--variant-filled & {
 		padding-inline: 4px;
 	}
@@ -55,5 +65,10 @@ const rootClasses = computed(() => {
 	.root--variant-outlined & {
 		padding-inline: 2px;
 	}
+}
+
+.icon {
+	flex-shrink: 0;
+	margin-inline: 4px;
 }
 </style>

@@ -4,26 +4,12 @@ import { SETTINGS_TYPE } from '~~/shared/prismic-documents'
 
 const { data } = await usePrismicFetchDocument<SettingsDocument>(SETTINGS_TYPE)
 const siteName = computed(() => data.value?.data.site_name)
-
-const { data: tags } = useAsyncData('all-repo-tags', () => {
-		return usePrismic().client.getTags()
-	},
-	{ dedupe: 'defer', deep: false},
-)
 </script>
 
 <template>
 	<header :class="$style.root">
 		<h1 :class="$style.title">{{ siteName }}</h1>
-		<div>
-			<fieldset>
-				<legend>Filter by tags</legend>
-				<div v-for="tag in tags" :key="tag">
-					<input type="radio" :id="tag" name="tags" :value="tag" />
-					<label :for="tag">{{ tag }}</label>
-				</div>
-			</fieldset>
-		</div>
+		<VTagFilter />
 		<div :class="$style.footer">
 			<VThemeSwitcher />
 			<VTermsPopover />

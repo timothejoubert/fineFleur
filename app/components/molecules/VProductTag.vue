@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getFilledContentRelationshipField, isContentRelationshipField } from '~/utils/prismic/content-relationship-field';
+// import { getFilledContentRelationshipField, isContentRelationshipField } from '~/utils/prismic/content-relationship-field';
 import type { ProductDocumentDataTagsItem, ProductTagDocument } from '~~/prismicio-types'
 
 const props = defineProps<{
@@ -15,9 +15,11 @@ const props = defineProps<{
 
 const theme = useAppTheme()
 const colorStyle = computed(() => {
+	if(!props.productTag?.data) return
+
 	const themeData = theme.value === 'dark' ?
-		props.productTag?.data.dark_theme[0]
-		: props.productTag?.data.light_theme[0]
+		props.productTag?.data.dark_theme?.[0]
+		: props.productTag?.data.light_theme?.[0]
 
 	return {
 		'--theme-tag-background': themeData?.background || '',
@@ -25,17 +27,24 @@ const colorStyle = computed(() => {
 		'--theme-tag-border': themeData?.border || '',
 	}
 })
+
+const id = computed(() => {
+	return props.productTag?.uid || props.productTag?.id || ''
+})
+
+const label = computed(() => {
+	return props.productTag?.data?.name || ''
+})
 </script>
 
 <template>
 	<slot
-		:id="productTag?.uid || productTag?.id"
-		:name="productTag?.data.name || ''"
-		test="zfeinfjz"
+		:id="id"
+		:label="label"
 		:style="colorStyle"
 	>
 		<VTag
-			:label="productTag?.data.name || ''"
+			:label="label"
 			variant="filled"
 			:style="colorStyle"
 		/>
