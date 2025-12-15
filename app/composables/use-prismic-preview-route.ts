@@ -2,10 +2,10 @@ export function usePrismicPreviewRoute() {
 	const route = useRoute()
 
 	const searchParams = computed(() => new URLSearchParams(route.fullPath))
-	const documentId = computed(() => searchParams.value.get('documentId'))
-	const token = computed(() => searchParams.value.get('token'))
+	const documentId = computed(() => searchParams.value.get('documentId') || undefined)
+	const token = computed(() => searchParams.value.get('token') || undefined)
 	const websitePreviewId = computed(() =>
-		searchParams.value.get('websitePreviewId'),
+		searchParams.value.get('websitePreviewId') || undefined,
 	)
 
 	const runtimeConfig = useRuntimeConfig()

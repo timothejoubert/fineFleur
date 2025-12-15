@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import { listingQueries } from '~/constants/listing-queries';
 import type { ProductDocument } from '~~/prismicio-types';
-import { PRODUCT_TYPE } from '~~/shared/prismic-documents'
+import { PRODUCT_TYPE, SETTINGS_TYPE } from '~~/shared/prismic-documents'
+
+const setting = useNuxtData(getPrismicFetchDocumentKey(SETTINGS_TYPE))
+usePrismicHead(setting.data.value)
+usePrismicSeoMeta(setting.data.value)
 
 const { filters } = useProductFilters()
 

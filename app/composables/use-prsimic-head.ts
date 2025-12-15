@@ -40,11 +40,12 @@ export function usePrismicHead(document?: ReachableDocument) {
 		})
 	})
 
+
+	const documentTitle = computed(() => document?.data?.meta_title || document?.data?.title)
 	const title = computed(() => {
-		return (
-			document?.data?.meta_title
-			|| `${document?.data?.title} | ${site.name}`
-		)
+		if (!documentTitle.value) return site.name
+
+		return `${documentTitle.value} | ${site.name}`
 	})
 
 	useHead({

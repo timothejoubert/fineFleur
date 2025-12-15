@@ -2,7 +2,14 @@ import { usePrismicPreviewRoute } from '~/composables/use-prismic-preview-route'
 import type { PrismicDocumentType } from '~/types/api'
 import { isDynamicRoute } from '~~/shared/prismic-routes'
 import type { AllDocumentTypes } from '~~/prismicio-types'
-import type { IntersectDocument } from '~/types/api'
+
+export function getPrismicFetchDocumentKey(
+	documentType: PrismicDocumentType | undefined,
+	uid?: string | undefined,
+	documentId?: string | undefined,
+) {
+	return `page-${documentType}-${uid || documentId || 'single-document'}`
+}
 
 export async function usePrismicFetchDocument<T extends AllDocumentTypes>(
 	documentType: PrismicDocumentType | undefined,
@@ -13,7 +20,7 @@ export async function usePrismicFetchDocument<T extends AllDocumentTypes>(
 
 	const { documentId, isPreview } = usePrismicPreviewRoute()
 
-	const dataKey = `page-${documentType}-${uid || documentId.value || 'single-document'}`
+	const dataKey = getPrismicFetchDocumentKey(documentType, uid, documentId.value)
 
 	const prismicClient = usePrismic().client
 	const { fetchLocaleOption } = useLocale()

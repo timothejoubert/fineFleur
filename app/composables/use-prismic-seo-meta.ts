@@ -25,21 +25,23 @@ function getValue(
 	return undefined
 }
 
-export function usePrismicSeoMeta(document: ReachableDocument) {
+export function usePrismicSeoMeta(document?: ReachableDocument) {
 	const config = useRuntimeConfig()
 	const siteName = config.public.site.name
 	const siteUrl = config.public.site.url
 
 	const title
-		= document.data?.meta_title
-			|| getValue(document.data, 'title')
+		=  getValue(document?.data, 'meta_title')
+			|| getValue(document?.data, 'title')
 			|| siteName
+
 	const description
-		= document.data?.meta_description
-			|| usePrismicText(getValue(document.data, 'content')).value
+		= getValue(document?.data, 'meta_description')
+			|| usePrismicText(getValue(document?.data, 'content')).value
+
 	const apiImgUrl
-		= document.data?.meta_image?.url
-			|| getValue(document.data, 'image', 'url')
+		= getValue(document?.data, 'meta_image', 'url')
+			|| getValue(document?.data, 'image', 'url')
 
 	const generateImg = useImage()
 	const image = apiImgUrl
@@ -56,9 +58,8 @@ export function usePrismicSeoMeta(document: ReachableDocument) {
 					},
 				},
 			)
-		: joinURL(siteUrl, '/share.jpg')
+		: joinURL(siteUrl, '/share.png')
 
-	const { path } = useRoute()
 
 	useSeoMeta({
 		ogSiteName: siteName,
@@ -72,6 +73,6 @@ export function usePrismicSeoMeta(document: ReachableDocument) {
 		ogImageWidth: '1200',
 		ogImageHeight: '700',
 		twitterImage: image,
-		ogUrl: joinURL(siteUrl, document.url || path),
+		ogUrl: joinURL(siteUrl, document?.url || useRoute().path),
 	})
 }
