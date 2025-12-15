@@ -1,6 +1,6 @@
 
 // Need to have the same key value as custom type fields in Prismic
-const FILTERS_KEYS = ['tags', 'brand'] as const
+const FILTERS_KEYS = ['product_tag', 'brand'] as const
 type FilterKey = typeof FILTERS_KEYS[number]
 
 type ProductFilter = {

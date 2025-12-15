@@ -1,57 +1,69 @@
 <script lang="ts" setup>
+import { listingQueries } from '~/constants/listing-queries';
 import type { ProductDocument } from '~~/prismicio-types';
 import { PRODUCT_TYPE } from '~~/shared/prismic-documents'
 
 const { filters } = useProductFilters()
 
 const prismic = usePrismic()
+const route = useRoute()
 
 const filterOptions = computed(() => {
-	const entries = Object.entries(filters.value).filter(([_, value]) => value && value.length)
-
-	const filtersOptions = entries.map(([key, value])=> {
-		return prismic.filter.at(`my.product.${key}`, value)
-	})
-
-	// if (filtersOptions.length) {
-	// 	return {
-	// 		filters: filtersOptions
-	// 	}
-	// }
-
-	return undefined
+	return Object.entries(filters.value)
+		.filter(([_, value]) => value && value.length)
+		.map(([key, value])=> {
+			return prismic.filter.any(`my.product.tags.${key}`, value)
+		})
 })
 
-watch(filterOptions, () => {
-	refresh()
-	console.log(filterOptions.value)
-}, { deep: true})
 
-console.log('filterOptions', filterOptions.value)
-const { data, refresh, error } = await usePrismicFetchDocuments<ProductDocument>(PRODUCT_TYPE, filterOptions.value)
+const fetchOptions = computed(() => {
+	const result = {
+		pageSize: 30,
+	}
+	const pageQuery = route.query[listingQueries.PAGE] as string
+	const page = parseInt(pageQuery) || 1
+
+	if (page > 1) {
+		Object.assign(result, {
+			page: page
+		})
+	}
+
+	if(filterOptions.value.length) {
+		Object.assign(result, {
+			filters: filterOptions.value,
+		})
+	}
+
+	return result
+})
+
+const { data, error } = await usePrismicFetchDocuments<ProductDocument>(PRODUCT_TYPE, fetchOptions)
 const result = computed(() => data.value?.results || [])
-
-
-// const hasMorePage = computed(() => {
-// 	return response.data.value?.next_page !== null
-// })
+const hasMorePage = computed(() => {
+	return data.value?.next_page !== null
+})
 </script>
 
 <template>
 	<main :class="$style.root">
-		<ul :class="$style.list" v-if="result?.length">
-			<li
-				:class="[$style.item, product.data?.extended && $style['item--extended']]"
-				v-for="product in result"
-				:key="product?.id"
-			>
-				<VProductCard
-					:product="product"
-				/>
-			</li>
-		</ul>
+		<template v-if="result?.length">
+			<ul :class="$style.list" >
+				<li
+					:class="[$style.item, product.data?.extended && $style['item--extended']]"
+					v-for="product in result"
+					:key="product?.id"
+				>
+					<VProductCard
+						:product="product"
+					/>
+				</li>
+			</ul>
+			<LazyVLoadMoreButton v-if="hasMorePage" :queryKey="listingQueries.PAGE" />
+		</template>
 		<pre v-else-if="error">{{ error }}</pre>
-		<p v-else>No products found</p>
+		<p v-else>{{ $t('no_products_found') }}</p>
 	</main>
 </template>
 

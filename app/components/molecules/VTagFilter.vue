@@ -9,7 +9,7 @@ const { filters } = useProductFilters()
 
 function onChange(event: Event) {
 	const input = event.target as HTMLInputElement
-	filters.value.tags = [input.value]
+	filters.value.product_tag = [input.value]
 }
 
 </script>
@@ -17,27 +17,27 @@ function onChange(event: Event) {
 	<fieldset :class="$style.root">
 		<legend class="visually-hidden">Filter by tags</legend>
 		<template v-for="tag in tags" :key="tag.uid" >
-			<VProductTag :product-tag="tag" v-slot="{ id, label, style }">
+			<VProductTag :product-tag="tag" v-slot="{ label, style }">
 				<VTag :class="$style.item" :style="style" variant="outlined">
 					<template #icon="{itemClass}">
 						<input
 							type="radio"
-							:checked="filters.tags?.includes(id)"
-							:id="id"
+							:checked="filters.product_tag?.includes(tag.id)"
+							:id="tag.id"
 							name="tags"
-							:value="id"
+							:value="tag.id"
 							:class="[$style.input]"
 							@change="onChange"
 						/>
 						<span :class="[$style.circle, itemClass]"></span>
 					</template>
 					<template #label="{ itemClass }">
-						<label :for="id" :class="[$style.label, itemClass]">{{ label }}</label>
+						<label :for="tag.id" :class="[$style.label, itemClass]">{{ label }}</label>
 					</template>
 				</VTag>
 			</VProductTag>
 		</template>
-		{{ filters }}
+		<VTag :class="$style.item" variant="outlined" :label="$t('reset')" @click="filters.product_tag = []" />
 	</fieldset>
 </template>
 <style lang="scss" module>

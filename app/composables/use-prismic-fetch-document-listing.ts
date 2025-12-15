@@ -7,32 +7,30 @@ export type GetAllByTypeParams = Parameters<PrismicClient['getAllByType']>[1]
 
 export function usePrismicFetchDocuments<
 	T extends AllDocumentTypes,
->(prismicDocument: ExtractDocumentType<T>, options: GetAllByTypeParams = {}) {
+>(prismicDocument: ExtractDocumentType<T>, options: MaybeRefOrGetter<GetAllByTypeParams>) {
 
 	const prismicClient = usePrismic().client
-	const fetchOptions = {
-		// pageSize: options.pageSize || 12, // default 20
-		limit: options.pageSize || 20, // default 20
-		// routes: prismicDocumentRoutes,
-		brokenRoute: '/404',
-		...useLocale()?.fetchLocaleOption.value,
-		...options,
-	}
+	const fetchOptions = computed(() => {
+		return {
+			// routes: prismicDocumentRoutes,
+			pageSize:  toValue(options)?.pageSize || 1, // default 20
+			brokenRoute: '/404',
+			...useLocale()?.fetchLocaleOption.value,
+			...(toValue(options) || {}),
+		}
+	})
 
-	// const hash: string[] = [prismicDocument]
-	// if (Object.keys(fetchOptions).length)
-	// 	hash.push(generateHashFromObject(fetchOptions))
-
-	// const key = `documents-${hash.join('-')}`
+	const key = computed(() => {
+		const optionsHash = generateHashFromObject(fetchOptions.value)
+		return`listing-${prismicDocument}-${optionsHash}`
+	})
 
 	return useAsyncData(
+		key,
 		() => {
-			return prismicClient.getByType(prismicDocument, fetchOptions)
+			return prismicClient.getByType(prismicDocument, fetchOptions.value)
+		}, {
+			dedupe: 'cancel' // cancels existing requests when a new one is made
 		}
 	)
-		// {
-		// 	dedupe: 'defer', // wait for the first request to finish before making another request
-		// 	deep: false,
-		// },
-	// )
 }

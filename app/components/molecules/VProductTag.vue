@@ -27,11 +27,6 @@ const colorStyle = computed(() => {
 		'--theme-tag-border': themeData?.border || '',
 	}
 })
-
-const id = computed(() => {
-	return props.productTag?.uid || props.productTag?.id || ''
-})
-
 const label = computed(() => {
 	return props.productTag?.data?.name || ''
 })
@@ -39,7 +34,6 @@ const label = computed(() => {
 
 <template>
 	<slot
-		:id="id"
 		:label="label"
 		:style="colorStyle"
 	>
