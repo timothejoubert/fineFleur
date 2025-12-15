@@ -11,9 +11,20 @@
     --theme-content-primary: light-dark(#010101, #FFF);
     --theme-content-secondary: light-dark(#898989, #898989);
     --theme-line-primary: light-dark(#01010133, red);
+
+    /* Button medium */
     --theme-button-medium-content: light-dark(#010101, red);
     --theme-button-medium-border: light-dark(#A9A9A9, red);
-    --theme-button-low-content: light-dark(#4F4F4F, #D1D1D1);
+    --theme-button-medium-border-hover: light-dark(#010101, red);
+    --theme-button-medium-border-pressed: light-dark(#010101, red);
+
+    /* Button low */
+    --theme-button-low-content:  light-dark(#4F4F4F, red);
+    --theme-button-low-content-hover:  light-dark(#010101, red);
+    --theme-button-low-content-pressed:  light-dark(#010101, red);
+    --theme-button-low-bg: light-dark( transparent, red);
+    --theme-button-low-bg-hover:  light-dark(#F2F2F2, red);
+    --theme-button-low-bg-pressed:  light-dark(#EDEDED, red);
 }
 
 html {

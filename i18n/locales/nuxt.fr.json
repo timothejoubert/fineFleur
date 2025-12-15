@@ -2,5 +2,11 @@
   "error_page.not_found_title": "Page introuvable",
   "error_page.fallback_title": "Une erreur est survenue",
   "main_nav": "Menu principal",
-  "play_video": "Lire la vidéo"
+  "play_video": "Lire la vidéo",
+  "switch_color_scheme": "Changer le thème de couleur",
+  "color_scheme.light": "Thème clair",
+  "color_scheme.dark": "Thème sombre",
+  "open.terms": "Ouvrir les conditions",
+  "close.terms": "Fermer les conditions",
+  "close": "Fermer"
 }

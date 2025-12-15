@@ -14,7 +14,13 @@ $themes: (
 
         button-medium-content: #010101,
         button-medium-border: #A9A9A9,
+
         button-low-content: #4F4F4F,
+        button-low-content-hover: #010101,
+        button-low-content-pressed: #010101,
+        button-low-bg: transparent,
+        button-low-bg-hover: #F2F2F2,
+        button-low-bg-pressed: #EDEDED,
     ),
     dark: (
         surface-primary: #010101,

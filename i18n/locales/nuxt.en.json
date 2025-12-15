@@ -1,1 +1,12 @@
-{}
+{
+	"error_page.not_found_title": "Page not found",
+	"error_page.fallback_title": "An error occurred",
+	"main_nav": "Main menu",
+	"play_video": "Play video",
+	"switch_color_scheme": "Switch color scheme",
+	"color_scheme.light": "Light",
+	"color_scheme.dark": "Dark",
+	"open.terms": "Open terms",
+	"close.terms": "Close terms",
+	"close": "Close"
+}

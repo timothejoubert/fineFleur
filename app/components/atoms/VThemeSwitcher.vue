@@ -37,18 +37,15 @@ watch(theme, (newTheme) => {
 })
 </script>
 <template>
-	<div :class="$style.root">
+	<VButton
+		@click="toggleTheme"
+		:label="$t(`color_scheme.${theme}`)"
+		icon="theme"
+		variant="ghost"
+		:aria-label="$t('switch_color_scheme')"
+	/>
+	<!-- <div :class="$style.root">
 		<input type="checkbox" id="theme" name="theme" :checked="theme === 'dark'" @change="toggleTheme" />
 		<label for="theme">{{ theme }}</label>
-	</div>
+	</div> -->
 </template>
-<style lang="scss" module>
-.root {
-	display: flex;
-	align-items: center;
-
-	input {
-		margin-right: 8px;
-	}
-}
-</style>
