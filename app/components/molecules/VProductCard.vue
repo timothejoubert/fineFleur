@@ -52,7 +52,7 @@ const imageProps = computed(() => {
 			:class="$style.image"
 			:sourceKeys="['Mobile']"
 		/>
-		<span :class="$style.brand"> {{ data.brand }}</span>
+		<span :class="$style.brand">{{ data.brand }}</span>
 		<component
 			:is="url ? VPrismicLink : 'h3'"
 			v-if="data.name"
@@ -79,6 +79,10 @@ const imageProps = computed(() => {
 		"brand ."
 		"title price";
 	grid-template-columns: repeat(2 , minmax(0, 1fr));
+
+	&:has(a) {
+		cursor: pointer;
+	}
 }
 
 .tags {
@@ -102,13 +106,20 @@ const imageProps = computed(() => {
 .title {
 	color: var(--theme-content-primary);
 	grid-area: title;
+	text-decoration: none;
+
+	&::before {
+		position: absolute;
+		content: '';
+		cursor: pointer;
+		inset: 0;
+	}
 }
 
 .price {
 	color: var(--theme-content-secondary);
 	grid-area: price;
 	text-align: right;
-
 
 	&::after {
 		content: '€';

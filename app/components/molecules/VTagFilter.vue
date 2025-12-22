@@ -12,13 +12,20 @@ function onChange(event: Event) {
 	filters.value.product_tag = [input.value]
 }
 
+// Reset filter if the selected tag is clicked again
+function onClick(id: string) {
+	if (filters.value.product_tag?.includes(id)) {
+		filters.value.product_tag = []
+	}
+}
+
 </script>
 <template>
 	<fieldset :class="$style.root">
 		<legend class="visually-hidden">Filter by tags</legend>
 		<template v-for="tag in tags" :key="tag.uid" >
 			<VProductTag :product-tag="tag" v-slot="{ label, style }">
-				<VTag :class="$style.item" :style="style" variant="outlined">
+				<VTag @click="() => onClick(tag.id)" :class="$style.item" :style="style" variant="outlined">
 					<template #icon="{itemClass}">
 						<input
 							type="radio"
@@ -37,11 +44,11 @@ function onChange(event: Event) {
 				</VTag>
 			</VProductTag>
 		</template>
-		<VTag :class="$style.item" variant="outlined" :label="$t('reset')" @click="filters.product_tag = []" />
 	</fieldset>
 </template>
 <style lang="scss" module>
 .root {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -49,10 +56,19 @@ function onChange(event: Event) {
 	border: initial;
 	margin: initial;
 	gap: 8px;
+
+	&:has( input:focus-visible)::before {
+		position: absolute;
+		border-radius: 16px;
+		background-color: var(--theme-surface-secondary);
+		content: '';
+		inset: -8px;
+	}
 }
 
 .item {
 	position: relative;
+	cursor: pointer;
 }
 
 .circle {
