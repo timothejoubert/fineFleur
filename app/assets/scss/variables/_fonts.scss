@@ -1,4 +1,4 @@
-$norm-font-name: 'TT Norms Pro';
+$default-font-name: 'Rules Variable';
 
 // https://github.com/unjs/fontaine
-$norm-font-family: $norm-font-name, '#{$norm-font-name} fallback', sans-serif;
+$default-font-family: $default-font-name, '#{$default-font-name} fallback', sans-serif;

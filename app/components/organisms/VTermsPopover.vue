@@ -89,10 +89,10 @@ onBeforeUnmount(() => {
 	opacity: 0;
 	scrollbar-width: none;
 	transition:
-		display 0.5s allow-discrete ease(out-quad),
-		overlay 0.5s allow-discrete ease(out-quad),
-		translate 0.5s ease(out-quad),
-		opacity 0.5s ease(out-quad);
+		display 0.4s allow-discrete ease(out-quad),
+		overlay 0.4s allow-discrete ease(out-quad),
+		translate 0.4s ease(out-quad),
+		opacity 0.4s ease(out-quad);
 	translate: 0 30px;
 
 	&:open {

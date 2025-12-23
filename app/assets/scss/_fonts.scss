@@ -1,43 +1,14 @@
 @use './variables/fonts.scss' as *;
 @use './mixins/font-face.scss' as *;
 
-@include font-face($norm-font-name, 'tt-norms-pro-regular-subset') {
-    font-weight: 400;
+@include font-face($default-font-name, 'rules-variable-wdth-wght-slnt') {
+    font-stretch: 25% 200%;
+    font-style: oblique -10deg 0deg;
+    font-weight: 100 900;
 }
-
-@include font-face($norm-font-name, 'tt-norms-pro-italic-subset') {
-    font-style: italic;
-    font-weight: 400;
-}
-
-@include font-face($norm-font-name, 'tt-norms-pro-normal-subset') {
-    font-weight: 450;
-}
-
-@include font-face($norm-font-name, 'tt-norms-pro-normal-italic-subset') {
-    font-style: italic;
-    font-weight: 450;
-}
-
-@include font-face($norm-font-name, 'tt-norms-pro-demibold-subset') {
-    font-weight: 600;
-}
-
-@include font-face($norm-font-name, 'tt-norms-pro-demibold-italic-subset') {
-    font-style: italic;
-    font-weight: 600;
-}
-
-@include font-face($norm-font-name, 'tt-norms-pro-bold-subset') {
-    font-weight: 700;
-}
-
-@include font-face($norm-font-name, 'tt-norms-pro-bold-italic-subset') {
-    font-style: italic;
-    font-weight: 700;
-}
-
 
 body {
-    font-family: #{$norm-font-family};
+    font-family: #{$default-font-family};
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }

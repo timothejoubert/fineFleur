@@ -17,7 +17,7 @@ function onTitleClicked() {
 
 <template>
 	<header :class="$style.root">
-		<h1 :class="$style.title" @click="onTitleClicked">{{ siteName }}</h1>
+		<h1 :class="$style.title" class="text-h1" @click="onTitleClicked">{{ siteName }}</h1>
 		<VTagFilter
 			:class="[$style.filters, isTagsOpen && $style['filters--visible']]"
 			:id="tagPopoverId"

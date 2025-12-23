@@ -4,15 +4,15 @@
 
 // Heading
 @mixin text-h1 {
-    font-family: $norm-font-family;
-    font-weight: 800;
-    line-height: 0.79;
+    font-family: $default-font-family;
+    font-weight: 400;
+    line-height: 1.35;
 
-    @include font-size-fluid((xs: 60, xl: 280));
+    @include font-size-fluid((xs: 20, xl: 24));
 }
 
 @mixin text-h2 {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 300;
     line-height: 0.9;
 
@@ -20,7 +20,7 @@
 }
 
 @mixin text-h3 {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 300;
     line-height: 0.9;
 
@@ -28,7 +28,7 @@
 }
 
 @mixin text-h4 {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 300;
     line-height: 1;
 
@@ -36,7 +36,7 @@
 }
 
 @mixin text-h5 {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 400;
     line-height: 1.1;
 
@@ -45,7 +45,7 @@
 
 // Service slice title
 @mixin text-h6 {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 400;
     line-height: 1;
 
@@ -54,7 +54,7 @@
 
 // Body
 @mixin text-body-lg {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 400;
     line-height: 1.5;
 
@@ -62,7 +62,7 @@
 }
 
 @mixin text-body-md {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 400;
     line-height: 1.5;
 
@@ -70,7 +70,7 @@
 }
 
 @mixin text-body-sm {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 400;
     line-height: 1.4;
 
@@ -78,7 +78,7 @@
 }
 
 @mixin text-body-xs {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 400;
     line-height: 1.45;
 
@@ -87,7 +87,7 @@
 
 // OverTitle
 @mixin text-over-title-md {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 600;
     line-height: 1;
     text-transform: uppercase;
@@ -97,7 +97,7 @@
 
 @mixin text-over-title-sm {
     color: var(--theme-color-on-background);
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 400;
     line-height: 0.9;
     text-transform: uppercase;
@@ -108,7 +108,7 @@
 
 // Components
 @mixin text-tag-md {
-    font-family: $norm-font-family;
+    font-family: $default-font-family;
     font-weight: 500;
     line-height: 1;
     text-transform: uppercase;
