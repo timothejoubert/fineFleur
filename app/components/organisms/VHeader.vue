@@ -3,7 +3,8 @@ import type { SettingsDocument } from '~~/prismicio-types'
 import { SETTINGS_TYPE } from '~~/shared/prismic-documents'
 
 const { data } = await usePrismicFetchDocument<SettingsDocument>(SETTINGS_TYPE)
-const siteName = computed(() => data.value?.data.site_name)
+const condig = useRuntimeConfig()
+const siteName = computed(() => data.value?.data.site_name || condig.public.site.name)
 
 const isTagsOpen = ref(false)
 const tagPopoverId = useId()
@@ -79,6 +80,7 @@ function onTitleClicked() {
 	@include media('>=md') {
 		flex: initial;
 		margin-block: 8px;
+		text-align: left;
 	}
 }
 

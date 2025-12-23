@@ -65,9 +65,6 @@ export async function usePrismicFetchDocument<T extends AllDocumentTypes>(
 			}
 		},
 		{
-			getCachedData: (key, nuxtApp) =>
-				nuxtApp.static.data?.[key] ?? nuxtApp.payload.data?.[key],
-			dedupe: 'defer',
 			deep: false,
 		},
 	)

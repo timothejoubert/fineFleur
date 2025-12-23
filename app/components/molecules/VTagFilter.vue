@@ -1,8 +1,10 @@
 <script lang="ts" setup>
+const prismicClient = usePrismic().client
+
 const { data: tags } = useAsyncData('all-repo-tags', () => {
-		return usePrismic().client.getAllByType('product_tag')
+		return prismicClient.getAllByType('product_tag')
 	},
-	{ dedupe: 'defer', deep: false},
+	{ deep: false },
 )
 
 const { filters } = useProductFilters()
