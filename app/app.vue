@@ -21,7 +21,11 @@
 }
 
 .header {
-	grid-column: 1 / span 2;
+	grid-column: 1 / -1;
+
+	@media (width >= 768px) {
+		grid-column: 1 / span 2;
+	}
 }
 
 .page {

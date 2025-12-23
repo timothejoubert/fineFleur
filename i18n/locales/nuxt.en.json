@@ -10,5 +10,6 @@
 	"close.terms": "Close terms",
 	"close": "Close",
 	"no_products_found": "No products found",
-	"reset": "Reset"
+	"reset": "Reset",
+	"filter_by_tags": "Filter by tags"
 }

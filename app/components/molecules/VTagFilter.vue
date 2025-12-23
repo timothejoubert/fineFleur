@@ -22,7 +22,7 @@ function onClick(id: string) {
 </script>
 <template>
 	<fieldset :class="$style.root">
-		<legend class="visually-hidden">Filter by tags</legend>
+		<legend class="visually-hidden">{{ $t('filter_by_tags') }}</legend>
 		<template v-for="tag in tags" :key="tag.uid" >
 			<VProductTag :product-tag="tag" v-slot="{ label, style }">
 				<VTag @click="() => onClick(tag.id)" :class="$style.item" :style="style" variant="outlined">
@@ -48,10 +48,9 @@ function onClick(id: string) {
 </template>
 <style lang="scss" module>
 .root {
-	position: relative;
+	position: var(--v-tag-filter-position, relative);
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
 	padding: initial;
 	border: initial;
 	margin: initial;

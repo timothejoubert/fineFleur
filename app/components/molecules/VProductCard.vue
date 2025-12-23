@@ -41,8 +41,8 @@ const imageProps = computed(() => {
 		:class="$style.root"
 	>
 		<div v-if="tagDocuments.length" :class="$style.tags">
-			<template v-for="tag in tagDocuments" :key="tag?.id">
-				<VProductTag :product-tag="tag" />
+			<template v-for="tag in tagDocuments" :key="tag?.id || tag?.uid">
+				<VProductTag :product-tag="tag" :default-slot-class="$style.tag" />
 			</template>
 
 		</div>
@@ -79,10 +79,6 @@ const imageProps = computed(() => {
 		"brand ."
 		"title price";
 	grid-template-columns: repeat(2 , minmax(0, 1fr));
-
-	&:has(a) {
-		cursor: pointer;
-	}
 }
 
 .tags {
@@ -90,6 +86,11 @@ const imageProps = computed(() => {
     flex-wrap: wrap;
     gap: 6px;
 	grid-area: tags;
+}
+
+.tag {
+	position: relative;
+	z-index: 2; // behind pseudo element link
 }
 
 .image {

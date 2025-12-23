@@ -44,8 +44,4 @@ watch(theme, (newTheme) => {
 		variant="ghost"
 		:aria-label="$t('switch_color_scheme')"
 	/>
-	<!-- <div :class="$style.root">
-		<input type="checkbox" id="theme" name="theme" :checked="theme === 'dark'" @change="toggleTheme" />
-		<label for="theme">{{ theme }}</label>
-	</div> -->
 </template>

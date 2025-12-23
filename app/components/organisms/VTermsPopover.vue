@@ -3,13 +3,37 @@ import type { TermsDocument } from '~~/prismicio-types';
 
 const id = useId()
 
+const isOpen = defineModel({ type: Boolean, default: false })
+
 const popoverElement = useTemplateRef<HTMLDialogElement>('popover')
 
 const { data: document } = await usePrismicFetchDocument<TermsDocument>('terms')
 
-function openPopover() {
-	popoverElement.value?.showModal()
+watch(isOpen, (newValue) => {
+	if(!popoverElement.value) return
+	console.log('watch isOpen', newValue)
+
+	if (newValue) {
+		popoverElement.value?.showModal()
+	} else {
+		popoverElement.value?.close()
+	}
+})
+
+function onDialogClose() {
+	isOpen.value = false
 }
+
+onMounted(() => {
+	if(!popoverElement.value) return
+	popoverElement.value.addEventListener('close', onDialogClose)
+})
+
+onBeforeUnmount(() => {
+	if(!popoverElement.value) return
+	popoverElement.value.removeEventListener('close', onDialogClose)
+})
+
 </script>
 <template>
 	<VButton
@@ -17,7 +41,8 @@ function openPopover() {
 		variant="ghost"
 		:aria-label="$t('open.terms')"
 		:label="document?.data.section_title || 'fallback'"
-		@click="openPopover"
+		@click="() => isOpen = true"
+		:class="$style.target"
 	/>
 	<dialog
 		:id="id"
@@ -38,29 +63,31 @@ function openPopover() {
 				autofocus
 			/>
 		</header>
-		<hr :class="$style.separator">
 		<div :class="$style.body">
 			<VText :content="document?.data.content" />
 		</div>
 	</dialog>
 </template>
-<!-- <style>
-html {
-	scrollbar-gutter: stable;
-}
-
-body:has(dialog:modal) {
-  overflow: hidden;
-}
-</style> -->
 
 <style lang="scss" module>
+
+.target {
+	display: none;
+
+	@include media('>=md') {
+		display: initial;
+	}
+}
+
 .popover {
 	width: min(100%, 696px);
-	padding: 48px 51px;
+	max-height: 80vh;
+	padding: 0 51px 48px;
 	border: none;
 	border-radius: 16px;
+	background-color: var(--theme-surface-primary);
 	opacity: 0;
+	scrollbar-width: none;
 	transition:
 		display 0.5s allow-discrete ease(out-quad),
 		overlay 0.5s allow-discrete ease(out-quad),
@@ -98,23 +125,23 @@ body:has(dialog:modal) {
 }
 
 .header {
+	position: sticky;
+	top: 0;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding-top: 51px;
+	padding-bottom: 24px;
+	border: solid var(--theme-line-primary);
+	border-width: 0 0 1PX;
+	background-color: var(--theme-surface-primary);
 }
 
 .title {
 	margin-block: 0;
 }
 
-.separator {
-	border-width: 1PX 0 0;
-	border-color: var(--theme-line-primary);
-	margin-block: 24px;
-}
-
 .body {
-	overflow: auto;
-	max-height: 60vh;
+	margin-top: 24px;
 }
 </style>

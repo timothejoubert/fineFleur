@@ -3,6 +3,7 @@
 import type { ProductDocumentDataTagsItem, ProductTagDocument } from '~~/prismicio-types'
 
 const props = defineProps<{
+	defaultSlotClass?: string
 	productTag: ProductTagDocument | ProductDocumentDataTagsItem['product_tag']
 }>()
 
@@ -41,6 +42,7 @@ const label = computed(() => {
 			:label="label"
 			variant="filled"
 			:style="colorStyle"
+			:class="defaultSlotClass"
 		/>
 	</slot>
 </template>

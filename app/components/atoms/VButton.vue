@@ -20,7 +20,7 @@ const rootClasses = computed(() => {
 <template>
 	<component :is="tag || 'button'" :class="rootClasses">
 		<slot name="label" :item-class="$style.label">
-			<span :class="$style.label">
+			<span v-if="label" :class="$style.label" class="v-button__label">
 				{{ label }}
 			</span>
 		</slot>
@@ -37,6 +37,7 @@ const rootClasses = computed(() => {
 	padding: 4px 8px;
 	border: none;
 	border-radius: 8px;
+	background-color: transparent;
 	cursor: pointer;
 	transition:
 		color 0.3s ease(out-quad),
