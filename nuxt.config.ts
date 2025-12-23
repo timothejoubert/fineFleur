@@ -7,6 +7,20 @@ import { PREVIEW_PATH } from './app/constants/prismic-preview'
 
 const isProd = process.env.NUXT_PUBLIC_SITE_ENV === 'production'
 export default defineNuxtConfig({
+	app: {
+        head: {
+            htmlAttrs: {
+                lang: I18N_DEFAULT_LOCALE,
+            },
+            script: [
+                isProd ? undefined : {
+                    src: `https://static.cdn.prismic.io/prismic.js?new=true&repo=${repositoryName}`,
+                    async: true,
+                    defer: true,
+                },
+            ],
+        },
+    },
 	modules: [
 		'@nuxt/eslint',
 		'@nuxt/fonts',
