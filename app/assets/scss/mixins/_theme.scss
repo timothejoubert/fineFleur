@@ -35,3 +35,28 @@
         }
     }
 }
+
+// Emit CSS variables using light-dark() by pairing light/dark values
+// Iterates all keys from $themes.light and resolves matching dark values
+@mixin theme-light-dark($match: null) {
+    @if meta.variable-exists('themes') and map.has-key($themes, light) and map.has-key($themes, dark) {
+        $light: map.get($themes, light);
+        $dark: map.get($themes, dark);
+
+        @each $key, $light-val in $light {
+            $dark-val: if(map.has-key($dark, $key), map.get($dark, $key), $light-val);
+
+            @if not $match {
+                --theme-#{$key}: light-dark(#{$light-val}, #{$dark-val});
+            } @else if meta.type-of($match) == list {
+                @each $match-value in $match {
+                    @if string.index($key, $match-value) {
+                        --theme-#{$key}: light-dark(#{$light-val}, #{$dark-val});
+                    }
+                }
+            } @else if string.index($key, $match) {
+                --theme-#{$key}: light-dark(#{$light-val}, #{$dark-val});
+            }
+        }
+    }
+}
