@@ -19,7 +19,10 @@
 				</template>
 			</VButton>
 		</template>
-		<VTagFilter :class="$style.filters" />
+		<template #default>
+			<VTagFilter :class="$style.filters" />
+			<!-- <VOrderFilter :class="$style.filters" /> -->
+		</template>
 	</VDialog>
 </template>
 <style lang="scss" module>
@@ -108,6 +111,8 @@
 
 	@include media('>=md') {
 		all: initial;
+		color: inherit;
+		font-family: inherit;
 
 		&::backdrop {
 			display: none;

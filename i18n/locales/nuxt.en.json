@@ -13,5 +13,6 @@
 	"reset": "Reset",
 	"filter_by_tags": "Filter by tags",
 	"open_filters": "Open filters",
-	"close_filters": "Close filters"
+	"close_filters": "Close filters",
+	"sort_by_price": "Sort by price"
 }

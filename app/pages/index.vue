@@ -7,7 +7,7 @@ const setting = useNuxtData(getPrismicFetchDocumentKey(SETTINGS_TYPE))
 usePrismicHead(setting.data.value)
 usePrismicSeoMeta(setting.data.value)
 
-const { filters } = useProductFilters()
+const { filters, orderings } = useProductListingOptions()
 
 const prismic = usePrismic()
 const route = useRoute()
@@ -18,6 +18,22 @@ const filterOptions = computed(() => {
 		.map(([key, value])=> {
 			return prismic.filter.any(`my.product.tags.${key}`, value)
 		})
+})
+
+const orderingOptions = computed(() => {
+	const orderingEntries = Object.entries(orderings.value)
+		.filter(([_, value]) => value && value.length)
+
+	if(orderingEntries.length) {
+		return orderingEntries.map(([field, direction]) => {
+			return {
+				field: `my.product.${field}`,
+				direction: direction,
+			}
+		})
+	}
+
+	return []
 })
 
 
@@ -34,6 +50,12 @@ const fetchOptions = computed(() => {
 		})
 	}
 
+	if(orderingOptions.value.length) {
+		Object.assign(result, {
+			orderings: orderingOptions.value
+		})
+	}
+
 	if(filterOptions.value.length) {
 		Object.assign(result, {
 			filters: filterOptions.value,
@@ -42,6 +64,10 @@ const fetchOptions = computed(() => {
 
 	return result
 })
+
+watch(fetchOptions, () => {
+	console.log('Fetch options changed:', fetchOptions.value)
+}, { deep: true , immediate: true })
 
 const { data, error } = await usePrismicFetchDocuments<ProductDocument>(PRODUCT_TYPE, fetchOptions)
 const result = computed(() => data.value?.results || [])

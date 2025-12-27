@@ -7,7 +7,7 @@ const { data: tags } = useAsyncData('all-repo-tags', () => {
 	{ deep: false },
 )
 
-const { filters } = useProductFilters()
+const { filters } = useProductListingOptions()
 
 function onChange(event: Event) {
 	const input = event.target as HTMLInputElement
