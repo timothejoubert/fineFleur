@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-type Props = {
+export type Props = {
 	tag?: string
 	label?: string
 	icon?: string
@@ -32,7 +32,7 @@ const rootClasses = computed(() => {
 
 <style lang="scss" module>
 .root {
-	display: inline-flex;
+	display: var(--v-button-display, inline-flex);
 	align-items: center;
 	padding: 4px 8px;
 	border: none;
@@ -95,6 +95,7 @@ const rootClasses = computed(() => {
 
 .icon {
 	flex-shrink: 0;
+	font-size: var(--v-button-icon-font-size, 10px);
 	margin-inline: 4px;
 }
 </style>

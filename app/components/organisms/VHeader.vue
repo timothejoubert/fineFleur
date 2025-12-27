@@ -6,12 +6,9 @@ const { data } = await usePrismicFetchDocument<SettingsDocument>(SETTINGS_TYPE)
 const condig = useRuntimeConfig()
 const siteName = computed(() => data.value?.data.site_name || condig.public.site.name)
 
-const isTagsOpen = ref(false)
-const tagPopoverId = useId()
-
 const isTermsOpen = ref(false)
 function onTitleClicked() {
-	if(window.innerWidth >= 768) return
+	if (window.innerWidth >= 768) return
 	isTermsOpen.value = !isTermsOpen.value
 }
 </script>
@@ -19,16 +16,7 @@ function onTitleClicked() {
 <template>
 	<header :class="$style.root">
 		<h1 :class="$style.title" class="text-h1" @click="onTitleClicked">{{ siteName }}</h1>
-		<VTagFilter
-			:class="[$style.filters, isTagsOpen && $style['filters--visible']]"
-			:id="tagPopoverId"
-		/>
-		<VToggleButton
-			v-model="isTagsOpen"
-			:class="$style.toggle"
-			:aria-controls="tagPopoverId"
-			:aria-expanded="isTagsOpen"
-		/>
+		<VListingFilters />
 		<div :class="$style.footer">
 			<VThemeSwitcher :class="$style['theme-button']" />
 			<VTermsPopover v-model="isTermsOpen" />
@@ -38,11 +26,13 @@ function onTitleClicked() {
 
 <style lang="scss" module>
 .root {
+	--v-header-inline: 28px;
+
 	position: fixed;
 	z-index: 11;
-	right: 28px;
+	right: var(--v-header-inline);
 	bottom: 16px;
-	left: 28px;
+	left: var(--v-header-inline);
 	display: flex;
 	min-height: 56px;
 	align-items: center;
@@ -50,9 +40,6 @@ function onTitleClicked() {
 	border-radius: 16px;
 	backdrop-filter: blur(20px);
 	background: var(--theme-surface-primary);
-
-	// background: linear-gradient(0deg, rgb(255, 255, 255, 65%), rgb(255, 255, 255, 65%)),
-	// 	linear-gradient(90deg, rgb(255, 255, 255, 10%) 0%, rgb(255, 255, 255, 10%) 100%);
 	box-shadow: 0 4px 24px 0 #0000001A;
 	gap: 8px;
 
@@ -81,58 +68,6 @@ function onTitleClicked() {
 		flex: initial;
 		margin-block: 8px;
 		text-align: left;
-	}
-}
-
-.filters {
-	@include media('<md') {
-		--v-tag-filter-position: absolute;
-
-		right: 0;
-		bottom: 80px;
-		left: 0;
-
-		// display: none;
-		padding: 24px;
-		border-radius: var(--radius-lg, 16px);
-		backdrop-filter: blur(10px);
-		background: var(--theme-surface-primary);
-		box-shadow: 0 4px 24px 0 rgb(0, 0, 0, 10%);
-		opacity: 0;
-		pointer-events: none;
-		transition:
-			display 0.5s allow-discrete ease(out-quad),
-			overlay 0.5s allow-discrete ease(out-quad),
-			translate 0.5s ease(out-quad),
-			opacity 0.5s ease(out-quad);
-		translate: 0 30px;
-
-		&--visible {
-			// display: flex;
-			opacity: 1;
-			pointer-events: initial;
-			translate: 0 0;
-		}
-
-
-		@starting-style {
-			&:open {
-				// display: none;
-				opacity: 0;
-				pointer-events: none;
-				translate: 0 30px;
-			}
-		}
-	}
-
-	@include media('>=md') {
-		align-items: flex-start;
-	}
-}
-
-.toggle {
-	@include media('>=md') {
-		display: none;
 	}
 }
 

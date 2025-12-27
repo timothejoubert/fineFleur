@@ -40,7 +40,7 @@ watch(theme, (newTheme) => {
 	<VButton
 		@click="toggleTheme"
 		:label="$t(`color_scheme.${theme}`)"
-		icon="theme"
+		icon="theme-3"
 		variant="ghost"
 		:aria-label="$t('switch_color_scheme')"
 	/>

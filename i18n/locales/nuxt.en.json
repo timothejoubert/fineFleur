@@ -12,6 +12,6 @@
 	"no_products_found": "No products found",
 	"reset": "Reset",
 	"filter_by_tags": "Filter by tags",
-	"open_tag_filter": "Open tags filter",
-	"close_tag_filter": "Close tags filter"
+	"open_filters": "Open filters",
+	"close_filters": "Close filters"
 }

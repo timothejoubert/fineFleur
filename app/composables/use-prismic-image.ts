@@ -36,7 +36,7 @@ export function usePrismicImage(
 
 		return {
 			provider: 'imgix',
-			placeholder: '#eee',
+			placeholder: '#F7F7F7',
 			quality: 70,
 			alt: imageField.value?.alt || mediaLinkField.value?.name,
 			src: src.value,

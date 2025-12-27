@@ -1,72 +1,46 @@
 <script lang="ts" setup>
 import type { TermsDocument } from '~~/prismicio-types';
 
-const id = useId()
-
 const isOpen = defineModel({ type: Boolean, default: false })
 
-const popoverElement = useTemplateRef<HTMLDialogElement>('popover')
-
 const { data: document } = await usePrismicFetchDocument<TermsDocument>('terms')
-
-watch(isOpen, (newValue) => {
-	if(!popoverElement.value) return
-	console.log('watch isOpen', newValue)
-
-	if (newValue) {
-		popoverElement.value?.showModal()
-	} else {
-		popoverElement.value?.close()
-	}
-})
-
-function onDialogClose() {
-	isOpen.value = false
-}
-
-onMounted(() => {
-	if(!popoverElement.value) return
-	popoverElement.value.addEventListener('close', onDialogClose)
-})
-
-onBeforeUnmount(() => {
-	if(!popoverElement.value) return
-	popoverElement.value.removeEventListener('close', onDialogClose)
-})
-
 </script>
 <template>
-	<VButton
-		:popovertarget="id"
-		variant="ghost"
-		:aria-label="$t('open.terms')"
-		:label="document?.data.section_title || 'fallback'"
-		@click="() => isOpen = true"
-		:class="$style.target"
-	/>
-	<dialog
-		:id="id"
-		:class="$style.popover"
-		ref="popover"
-		closedby="any"
+	<VDialog
+		v-model="isOpen"
+		:dialog-class="$style.popover"
+		modal
 	>
-		<header :class="$style.header">
-			<h2 :class="$style.title">
-				{{ document?.data.section_title }}
-			</h2>
+		<template #target="{ isOpen, open, id }">
 			<VButton
-				@click="popoverElement?.close()"
-				variant="outlined"
-				:aria-label="$t('close.terms')"
-				icon="close"
-				:label="$t('close')"
-				autofocus
+				:aria-controls="id"
+				:aria-expanded="isOpen"
+				variant="ghost"
+				:aria-label="$t('open.terms')"
+				:label="document?.data.section_title || 'fallback'"
+				@click="open"
+				:class="$style.target"
 			/>
-		</header>
-		<div :class="$style.body">
-			<VText :content="document?.data.content" />
-		</div>
-	</dialog>
+		</template>
+		<template #default>
+			<header :class="$style.header">
+				<h2 :class="$style.title">
+					{{ document?.data.section_title }}
+				</h2>
+				<VButton
+					@click="() => isOpen = false"
+					variant="outlined"
+					:aria-label="$t('close.terms')"
+					icon="close"
+					:label="$t('close')"
+					autofocus
+				/>
+			</header>
+			<div :class="$style.body">
+				<VText :content="document?.data.content" />
+			</div>
+		</template>
+	</VDialog>
 </template>
 
 <style lang="scss" module>

@@ -49,10 +49,12 @@ function onClick(id: string) {
 	</fieldset>
 </template>
 <style lang="scss" module>
+@use 'assets/scss/variables/fonts' as *;
+
 .root {
-	position: var(--v-tag-filter-position, relative);
 	display: flex;
 	flex-direction: column;
+	align-items: var(--v-tag-filter-align-items, flex-start);
 	padding: initial;
 	border: initial;
 	margin: initial;
@@ -95,5 +97,9 @@ function onClick(id: string) {
 	position: absolute;
 	cursor: pointer;
 	inset: 0;
+}
+
+.label {
+    font-family: $default-font-family;
 }
 </style>

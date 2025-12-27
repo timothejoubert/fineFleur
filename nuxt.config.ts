@@ -4,6 +4,7 @@ import svgLoader from 'vite-svg-loader'
 import { I18N_DEFAULT_LOCALE, I18N_LOCALES } from './i18n/i18n'
 // import { prismicRouteList } from './shared/prismic-routes'
 import { PREVIEW_PATH } from './app/constants/prismic-preview'
+import { breakpoints } from './app/constants/breakpoints'
 
 const isProd = process.env.NUXT_PUBLIC_SITE_ENV === 'production'
 export default defineNuxtConfig({
@@ -132,15 +133,7 @@ export default defineNuxtConfig({
 			baseURL: '',
 		},
 		quality: 75,
-		screens: {
-			xs: 375, // override nuxt/img sizes to match our breakpoints
-			sm: 480, // override
-			vl: 1280, // override
-			xl: 1440, // override
-			xxl: 1600, // override
-			hd: 1920, // additional size
-			qhd: 2500, // additional size
-		},
+		screens: breakpoints,
 		// @ts-expect-error not working with [1]
 		densities: '1',
 		presets: {
